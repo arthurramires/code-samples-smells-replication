@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use this dataset or pipeline, please cite it as below."
+title: "Replication Package: Co-occurrence of Code Smells and Community Smells in Java Code Samples"
+type: dataset
+authors:
+  - family-names: Bueno
+    given-names: Arthur Ramires Rodrigues Neto
+    orcid: ""
+    affiliation: "Universidade Federal de Mato Grosso do Sul (UFMS)"
+    email: guitarumoto@gmail.com
+  - family-names: Fontão
+    given-names: Awdren de Lima
+    affiliation: "Universidade Federal de Mato Grosso do Sul (UFMS)"
+    email: awdren.fontao@ufms.br
+  - family-names: Machado
+    given-names: Maria Istela Cagnin
+    affiliation: "Universidade Federal de Mato Grosso do Sul (UFMS)"
+date-released: "2026-02-15"
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/TODO/code-community-smells-replication"
+keywords:
+  - code smells
+  - community smells
+  - code samples
+  - mining software repositories
+  - sociotechnical analysis
+  - Java
+  - open source
+  - Designite
+  - csDetector
+abstract: >-
+  Replication package for the Master's thesis "Análise Evolutiva da
+  Coocorrência entre Code Smells e Community Smells em Code Samples"
+  (UFMS, 2026). Contains a dataset of 318 Java code sample repositories
+  with Code Smell metrics (100,643 instances detected by Designite Java)
+  and 50 repositories with Community Smell indicators (detected by
+  csDetector), along with the full pipeline scripts for collection,
+  consolidation, and statistical analysis.
+references:
+  - type: thesis
+    authors:
+      - family-names: Bueno
+        given-names: Arthur Ramires Rodrigues Neto
+    title: "Análise Evolutiva da Coocorrência entre Code Smells e Community Smells em Code Samples"
+    institution:
+      name: "Universidade Federal de Mato Grosso do Sul"
+    year: 2026
+    thesis-type: "Master's Thesis"
