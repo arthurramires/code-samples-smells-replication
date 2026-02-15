@@ -7,7 +7,7 @@ authors:
     given-names: Arthur Ramires Rodrigues Neto
     orcid: ""
     affiliation: "Universidade Federal de Mato Grosso do Sul (UFMS)"
-    email: guitarumoto@gmail.com
+    email: arthur.ramires@ufms.br
   - family-names: Fontão
     given-names: Awdren de Lima
     affiliation: "Universidade Federal de Mato Grosso do Sul (UFMS)"
@@ -18,7 +18,9 @@ authors:
 date-released: "2026-02-15"
 version: "1.0.0"
 license: MIT
-repository-code: "https://github.com/TODO/code-community-smells-replication"
+repository-code: "https://github.com/arthurramires/code-samples-smells-replication"
+doi: "10.5281/zenodo.18649168"
+url: "https://doi.org/10.5281/zenodo.18649168"
 keywords:
   - code smells
   - community smells

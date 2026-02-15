@@ -1,6 +1,6 @@
 # Replication Package: Co-occurrence of Code Smells and Community Smells in Java Code Samples
 
-[![DOI](https://img.shields.io/badge/DOI-pending-blue)]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18649168.svg)](https://doi.org/10.5281/zenodo.18649168)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![FAIR](https://img.shields.io/badge/FAIR-compliant-green)]()
 
@@ -134,7 +134,9 @@ If you use this dataset or pipeline, please cite:
              e Community Smells em Code Samples},
   school  = {Universidade Federal de Mato Grosso do Sul},
   year    = {2026},
-  type    = {Dissertação de Mestrado}
+  type    = {Dissertação de Mestrado},
+  doi     = {10.5281/zenodo.18649168},
+  url     = {https://doi.org/10.5281/zenodo.18649168}
 }
 ```
 
@@ -144,5 +146,5 @@ This replication package is licensed under the MIT License. See [LICENSE](LICENS
 
 ## Contact
 
-- **Arthur Bueno** — guitarumoto@gmail.com
+- **Arthur Bueno** — arthur.ramires@ufms.br
 - **Prof. Awdren Fontão** — awdren.fontao@ufms.br

@@ -24,9 +24,9 @@ This document maps our replication package against the MSR 2025/2026 Data and To
 | Source code of custom tools | ✅ | scripts/ folder (5 scripts) |
 | Clear documentation on how to recreate | ✅ | INSTALL.md (step-by-step) |
 | Open-source license | ✅ | MIT License |
-| Citable release with DOI | ⬜ PENDING | Zenodo integration needed |
-| DOI citation in camera-ready | ⬜ PENDING | Will add to LaTeX text |
-| CITATION file | ⬜ PENDING | Need CITATION.cff |
+| Citable release with DOI | ✅ | DOI: [10.5281/zenodo.18649168](https://doi.org/10.5281/zenodo.18649168) |
+| DOI citation in camera-ready | ✅ | Added to LaTeX dissertation (Cap. 5 and Cap. 8) |
+| CITATION file | ✅ | CITATION.cff (CFF v1.2.0) |
 
 ### Review Criteria
 
@@ -45,19 +45,19 @@ This document maps our replication package against the MSR 2025/2026 Data and To
 
 | Principle | Compliance | Implementation |
 |---|---|---|
-| F1: Globally unique persistent identifier | ⬜ PENDING | Zenodo DOI |
+| F1: Globally unique persistent identifier | ✅ | DOI: 10.5281/zenodo.18649168 |
 | F2: Rich metadata | ✅ | CODEBOOK.md (62 variables documented) |
-| F3: Metadata includes data identifier | ⬜ PENDING | Will link DOI in CODEBOOK |
-| F4: Indexed in searchable resource | ⬜ PENDING | Zenodo + GitHub |
+| F3: Metadata includes data identifier | ✅ | DOI linked in CITATION.cff and README |
+| F4: Indexed in searchable resource | ✅ | Zenodo + GitHub |
 
 ### A — Accessible
 
 | Principle | Compliance | Implementation |
 |---|---|---|
-| A1: Retrievable by identifier via standard protocol | ⬜ PENDING | HTTPS via Zenodo/GitHub |
+| A1: Retrievable by identifier via standard protocol | ✅ | HTTPS via Zenodo/GitHub |
 | A1.1: Open, free protocol | ✅ | HTTPS |
 | A1.2: Authentication if needed | ✅ | Public (no auth) |
-| A2: Metadata accessible even if data gone | ⬜ PENDING | Zenodo preserves metadata |
+| A2: Metadata accessible even if data gone | ✅ | Zenodo preserves metadata independently |
 
 ### I — Interoperable
 
@@ -78,14 +78,14 @@ This document maps our replication package against the MSR 2025/2026 Data and To
 
 ---
 
-## 3. Pending Actions
+## 3. Completed Actions
 
-1. **Create CITATION.cff** — GitHub-native citation file
-2. **Publish to GitHub** — Public repository
-3. **Create Zenodo release** — Archive with DOI
-4. **Add DOI badge** to README.md
-5. **Reference DOI** in LaTeX dissertation text
-6. **Add datapackage.json** (optional, for machine-readable metadata)
+1. ~~Create CITATION.cff~~ — ✅ Done (CFF v1.2.0 with DOI)
+2. ~~Publish to GitHub~~ — ✅ Done ([arthurramires/code-samples-smells-replication](https://github.com/arthurramires/code-samples-smells-replication))
+3. ~~Create Zenodo release~~ — ✅ Done (DOI: 10.5281/zenodo.18649168)
+4. ~~Add DOI badge~~ — ✅ Done (README.md)
+5. ~~Reference DOI in LaTeX~~ — ✅ Done (Cap. 5 and Cap. 8)
+6. **Add datapackage.json** (optional, for machine-readable metadata) — deferred
 
 ---
 
