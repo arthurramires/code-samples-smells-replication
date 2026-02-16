@@ -122,3 +122,15 @@ If using Fish shell, replace `$()` with `()` and `&&` with `; and` in bash comma
 
 ### Rate limiting
 If encountering GitHub API rate limits, set `GITHUB_TOKEN` and consider adding delays between API calls in the pipeline script.
+
+## Data Directory Structure
+
+The `data/` directory follows MSR Data Showcase conventions:
+
+- **`repositories.csv`** — Primary dataset: complete list of 318 repositories with metadata, analysis subset flags, and code smell totals. This is the entry point for any analysis.
+- **`clustering_outliers.csv`** — 22 repositories excluded from k-means clustering (±2 SD criterion).
+- **`processed/`** — Consolidated CSVs ready for analysis. These are the files used by `scripts/06_analysis_v2.py` and `scripts/07_analysis_extra.py`.
+- **`raw/`** — Empty by default. Populated during reproduction with per-repository outputs from Designite Java and csDetector-fixed.
+
+**Note:** The analysis scripts reference a configurable `DADOS` directory. When using the pre-computed data, point `DADOS` to `data/processed/`.
+

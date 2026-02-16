@@ -1,6 +1,43 @@
 # Codebook — Variable Definitions
 
 This document describes all variables in the consolidated CSV files.
+## repositories.csv (318 rows) — PRIMARY DATASET
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `id` | int | Sequential identifier (1–318) |
+| `repo_name` | string | GitHub repository name |
+| `github_url` | string | GitHub search URL for repository resolution |
+| `CommitCount` | int | Total number of commits |
+| `AuthorCount` | int | Number of unique commit authors |
+| `DaysActive` | int | Days between first and last commit |
+| `BusFactorNumber` | float | Bus Factor score (0–1, NULL if < 2 authors) |
+| `lone_wolf` | binary | 1 = Lone Wolf detected (BusFactor > 0.9) |
+| `radio_silence` | binary | 1 = Radio Silence detected (0 PRs AND 0 Issues) |
+| `org_silo` | binary | 1 = Org Silo detected (communities ≥ 3, density < 0.3) |
+| `total_code_smells` | int | Sum of design + implementation smells |
+| `total_design_smells` | int | Design smells count (Designite Java) |
+| `total_impl_smells` | int | Implementation smells count (Designite Java) |
+| `in_social_analysis` | binary | 1 = included in social analysis subset (N=300) |
+| `in_clustering` | binary | 1 = included in k-means clustering (N=113) |
+| `clustering_outlier` | binary | 1 = excluded from clustering as ±2 SD outlier (N=22) |
+| `has_bus_factor` | binary | 1 = Bus Factor data available (N=135) |
+| `url_note` | string | Note on URL resolution method |
+
+## clustering_outliers.csv (22 rows)
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `repo_name` | string | Repository name |
+| `total_code_smells` | int | Total code smells |
+| `CommitCount` | int | Total commits |
+| `AuthorCount` | int | Number of authors |
+| `commitCentrality_Density` | float | Network density |
+| `BusFactorNumber` | float | Bus Factor score |
+| `DaysActive` | int | Days active |
+| `outlier_variables` | string | Variable(s) exceeding ±2 SD threshold |
+
+
 
 ## consolidated_code_smells.csv (318 rows)
 

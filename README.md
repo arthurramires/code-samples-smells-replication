@@ -28,6 +28,7 @@ replication-package/
 ├── CITATION.cff               # Machine-readable citation (GitHub-native)
 ├── LICENSE                    # MIT License
 ├── INSTALL.md                 # Setup and reproduction instructions
+├── requirements.txt           # Python dependencies
 ├── scripts/
 │   ├── 01_setup_macos.sh      # Environment setup (macOS/Apple Silicon)
 │   ├── 02_expand_dataset.sh   # Dataset expansion via GitHub API
@@ -46,13 +47,18 @@ replication-package/
 │       ├── run_batch.py       # Batch runner with auto-resume
 │       └── consolidate_results.py  # Consolidate csDetector outputs
 ├── data/
-│   ├── README.md                      # Data provenance and format docs
-│   ├── consolidated_code_smells.csv   # 318 repos × 24 code smell types
-│   ├── consolidated_metrics.csv       # 318 repos × 16 software metrics
-│   ├── consolidated_community.csv     # 50 repos × 19 community metrics (original)
-│   ├── consolidated_community_300.csv # 300 repos × 53 community metrics (expanded)
-│   ├── consolidated_full.csv          # 50 repos × merged (original)
-│   └── consolidated_full_300.csv      # 300 repos × merged (expanded)
+│   ├── README.md                      # Data provenance, format, and flow
+│   ├── repositories.csv               # PRIMARY DATASET: 318 repos + metadata
+│   ├── clustering_outliers.csv        # 22 repos excluded from clustering
+│   ├── processed/                     # Consolidated analysis-ready CSVs
+│   │   ├── consolidated_code_smells.csv   # 318 repos × 28 smell types
+│   │   ├── consolidated_metrics.csv       # 318 repos × 17 quality metrics
+│   │   ├── consolidated_community.csv     # 50 repos × 20 community (v1)
+│   │   ├── consolidated_community_300.csv # 300 repos × 53 community (v2)
+│   │   ├── consolidated_full.csv          # 50 repos × merged (v1)
+│   │   └── consolidated_full_300.csv      # 300 repos × merged (v2)
+│   └── raw/                           # Raw tool outputs (see raw/README.md)
+│       └── README.md
 └── docs/
     ├── CODEBOOK.md            # Variable definitions and data dictionary
     └── MSR-FAIR-COMPLIANCE.md # FAIR principles compliance checklist

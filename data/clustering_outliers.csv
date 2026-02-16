@@ -1,0 +1,23 @@
+repo_name,total_code_smells,CommitCount,AuthorCount,commitCentrality_Density,BusFactorNumber,DaysActive,outlier_variables
+taketoday-tutorial4j,34781,3025,1,0.0,0.6666666666666666,476,total_code_smells; CommitCount
+Aspose.Words-for-Java,13093,864,36,0.1507936507936507,1.0,5045,total_code_smells
+Defeat-JAVA,2539,283,76,1.0,0.2083333333333333,438,commitCentrality_Density
+levelup-java-examples,2333,592,2,1.0,0.6666666666666666,955,commitCentrality_Density
+Java_MVVM_with_Swing_and_RxJava_Examples,438,112,2,1.0,0.6,440,commitCentrality_Density
+clean-architecture-example,222,125,3,1.0,0.8421052631578947,44,commitCentrality_Density
+javalab,211,81,8,1.0,0.0,119,commitCentrality_Density; BusFactorNumber
+alfresco-api-java-examples,106,17,2,1.0,0.5,1325,commitCentrality_Density
+msa-ddd-eventsourcing,94,70,6,1.0,-0.2,60,commitCentrality_Density; BusFactorNumber
+cleanarch,81,8,2,1.0,0.6,339,commitCentrality_Density
+graphql,74,13,1,0.0,0.0,7,BusFactorNumber
+javafx-examples,60,100,4,1.0,0.7142857142857143,78,commitCentrality_Density
+tutorial,53,208,4,0.6666666666666666,-0.5,1670,BusFactorNumber
+java-code-demo,52,42,3,1.0,-0.5,420,commitCentrality_Density; BusFactorNumber
+Commerce-API-Java,38,16,2,1.0,0.0,19,commitCentrality_Density; BusFactorNumber
+usb4java-examples,34,26,2,1.0,0.6,2016,commitCentrality_Density
+bazel-java,33,52,2,1.0,0.3333333333333333,2755,commitCentrality_Density
+OpenPgp-BounceCastle-Example,16,6,2,1.0,0.75,1166,commitCentrality_Density
+azure-cosmos-cassandra-extensions-java-sample-v4,11,53,6,0.7333333333333333,-0.5,492,BusFactorNumber
+grpc-java,3,7022,463,0.0659822538872215,0.0,4052,CommitCount; AuthorCount; BusFactorNumber
+ELK-Logger,2,28,4,1.0,-1.0,23,commitCentrality_Density; BusFactorNumber
+JAVA,1,3128,765,0.0472470314478321,1.0,3498,CommitCount; AuthorCount
