@@ -18,7 +18,7 @@ This replication package accompanies the Master's thesis:
 > Advisor: Prof. Dr. Awdren de Lima Fontão
 > Co-advisor: Profa. Dra. Maria Istela Cagnin Machado
 
-The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector) in 318 Java open-source code sample repositories.
+The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in 318 Java open-source code sample repositories, achieving 94.3% community data coverage (300/318 repos).
 
 ## Repository Structure
 
@@ -33,13 +33,26 @@ replication-package/
 │   ├── 02_expand_dataset.sh   # Dataset expansion via GitHub API
 │   ├── 03_run_pipeline.sh     # Main pipeline: Designite + csDetector
 │   ├── 04_consolidate.py      # Consolidation of raw outputs into unified CSV
-│   └── 05_filter_dataset.py   # Dataset filtering by IC/EC criteria
+│   ├── 05_filter_dataset.py   # Dataset filtering by IC/EC criteria
+│   ├── 06_analysis_v2.py      # Main analysis: correlations, figures, merge
+│   └── 07_analysis_extra.py   # Additional: scatter, Mann-Whitney, clusters
+├── tools/
+│   └── csDetector-fixed/      # Patched version of csDetector (13 bug fixes)
+│       ├── CHANGES.md         # Detailed changelog of all fixes
+│       ├── devNetwork.py      # Main orchestrator (patched)
+│       ├── repoLoader.py      # Git clone with branch fallback
+│       ├── graphqlAnalysis/   # GitHub API modules (patched)
+│       ├── build_repo_urls.py # Resolve repo names to GitHub URLs
+│       ├── run_batch.py       # Batch runner with auto-resume
+│       └── consolidate_results.py  # Consolidate csDetector outputs
 ├── data/
-│   ├── README.md              # Data provenance and format documentation
+│   ├── README.md                      # Data provenance and format docs
 │   ├── consolidated_code_smells.csv   # 318 repos × 24 code smell types
 │   ├── consolidated_metrics.csv       # 318 repos × 16 software metrics
-│   ├── consolidated_community.csv     # 50 repos × 19 community metrics
-│   └── consolidated_full.csv          # 50 repos × merged technical + social
+│   ├── consolidated_community.csv     # 50 repos × 19 community metrics (original)
+│   ├── consolidated_community_300.csv # 300 repos × 53 community metrics (expanded)
+│   ├── consolidated_full.csv          # 50 repos × merged (original)
+│   └── consolidated_full_300.csv      # 300 repos × merged (expanded)
 └── docs/
     ├── CODEBOOK.md            # Variable definitions and data dictionary
     └── MSR-FAIR-COMPLIANCE.md # FAIR principles compliance checklist
@@ -51,25 +64,40 @@ replication-package/
 |--------|-------------|-----------|-------------|
 | Code Smells | 318 | 28 | Design and implementation smells per repo |
 | Metrics | 318 | 17 | LOC, WMC, CC, FANIN/OUT, LCOM, DIT, smell density |
-| Community | 50 | 20 | Commits, authors, PRs, issues, centrality, CS indicators |
-| Full | 50 | 62 | Merged technical + social (inner join) |
+| Community (original) | 50 | 20 | Original csDetector output |
+| Community (expanded) | 300 | 53 | csDetector-fixed output (94.3% coverage) |
+| Full (original) | 50 | 62 | Merged technical + social |
+| Full (expanded) | 300 | 35 | Merged technical + social + CS indicators |
 
-## Key Findings
+## Key Findings (Expanded Dataset, N=300)
 
 - **100,643 Code Smell instances** across 318 repositories
 - Top 3 smells: Magic Number (57.4%), Unutilized Abstraction (20.8%), Long Statement (13.3%)
-- **24 significant Spearman correlations** (|ρ| ≥ 0.3, p < 0.05) between technical and social metrics
-- Strongest: total_code_smells ↔ commit_count (ρ = 0.666, p < 0.001)
-- Key negative: smell_density ↔ mean_centrality (ρ = −0.328, p = 0.020)
-- Community Smell indicators: Org Silo in 46% of repos, Lone Wolf in 22%
-- **3 sociotechnical profiles** identified via k-means clustering
+- **Bus Factor** is the strongest social correlate of Code Smells (ρ = −0.366, p < 0.001)
+- Mann-Whitney U tests confirm significant differences for **Org Silo** (p < 0.001) and **Lone Wolf** (p = 0.012)
+- Community Smell indicators: Radio Silence 39.7%, Lone Wolf 30.0%, Org Silo 28.7%
+- **3 sociotechnical profiles** identified via k-means clustering (N=113)
+- Network density is the key contextual factor differentiating cluster profiles
+
+### csDetector-fixed
+
+The original csDetector tool processed only 50/318 repositories (15.7%) due to multiple bugs. We created **csDetector-fixed**, a patched version with 13 bug fixes that achieved **300/318 (94.3%)** coverage. Key fixes include:
+
+- Cross-platform compatibility (macOS/Linux support)
+- Python 3.10+ compatibility
+- Division-by-zero guards in 7 analysis modules
+- GitHub API retry with exponential backoff
+- Git branch fallback (master → main → default)
+- Robust error handling for politeness/sentiment analysis
+
+See [`tools/csDetector-fixed/CHANGES.md`](tools/csDetector-fixed/CHANGES.md) for the full changelog.
 
 ## Tools and Versions
 
 | Tool | Version | Purpose |
 |------|---------|---------|
 | Designite Java | 2.x (free academic) | Code Smell detection |
-| csDetector | master (commit hash in INSTALL.md) | Community Smell detection |
+| csDetector-fixed | Based on csDetector master + 13 patches | Community Smell detection |
 | SentiStrength | Oct 2019 data | Sentiment analysis (used by csDetector) |
 | Java | OpenJDK 17 | Runtime |
 | Python | 3.10+ | Pipeline scripts, consolidation, analysis |
@@ -89,25 +117,36 @@ replication-package/
    bash scripts/01_setup_macos.sh
    ```
 
-2. **Expand dataset** (collect repository list from GitHub organizations):
+2. **Resolve repo URLs** (map repo names to GitHub URLs):
    ```bash
-   bash scripts/02_expand_dataset.sh
+   python tools/csDetector-fixed/build_repo_urls.py \
+     --repos-csv data/consolidated_code_smells.csv \
+     --pat YOUR_GITHUB_PAT \
+     --output urls/
    ```
 
-3. **Run pipeline** (Designite + csDetector on all repos):
+3. **Run csDetector-fixed batch** (community smell detection on all repos):
    ```bash
-   bash scripts/03_run_pipeline.sh
+   python tools/csDetector-fixed/run_batch.py \
+     --repos-list urls/repo_urls.txt \
+     --output-dir Dataset/community_smells_v2 \
+     --senti-path /path/to/SentiStrength \
+     --pat YOUR_GITHUB_PAT \
+     --timeout 900
    ```
 
 4. **Consolidate results:**
    ```bash
-   python scripts/04_consolidate.py \
-     --base-dir ~/mestrado-pipeline \
-     --progress ~/mestrado-pipeline/logs/progress_*.csv \
+   python tools/csDetector-fixed/consolidate_results.py \
+     --results-dir Dataset/community_smells_v2 \
      --output-dir data/
    ```
 
-5. **Statistical analysis** can be performed using standard Python libraries (scipy, sklearn, pandas).
+5. **Run analysis:**
+   ```bash
+   python scripts/06_analysis_v2.py
+   python scripts/07_analysis_extra.py
+   ```
 
 ## Inclusion/Exclusion Criteria
 
