@@ -18,7 +18,7 @@ This replication package accompanies the Master's thesis:
 > Advisor: Prof. Dr. Awdren de Lima Fontão
 > Co-advisor: Profa. Dra. Maria Istela Cagnin Machado
 
-The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in 318 Java open-source code sample repositories, achieving 94.3% community data coverage (300/318 repos).
+The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in 318 Java open-source code sample repositories, achieving 94.3% community data coverage (300/318 repos). It includes a **complete longitudinal analysis** by project year (208 repos x up to 5 years = 800 snapshots), revealing that code samples are **write-once artifacts** whose Code Smells are determined at creation and remain stable over time.
 
 ## Repository Structure
 
@@ -36,7 +36,12 @@ replication-package/
 │   ├── 04_consolidate.py      # Consolidation of raw outputs into unified CSV
 │   ├── 05_filter_dataset.py   # Dataset filtering by IC/EC criteria
 │   ├── 06_analysis_v2.py      # Main analysis: correlations, figures, merge
-│   └── 07_analysis_extra.py   # Additional: scatter, Mann-Whitney, clusters
+│   ├── 07_analysis_extra.py   # Additional: scatter, Mann-Whitney, clusters
+│   ├── 08_temporal_extraction.py      # Temporal extraction: git checkout + GitHub API
+│   ├── 08b_run_designite_temporal.py  # Designite Java on temporal snapshots
+│   ├── 09_temporal_analysis.py        # Initial temporal statistical analysis
+│   ├── 11_commit_concentration.py     # Commit temporal concentration analysis
+│   └── 12_dissertation_analysis.py    # Final analysis: all tables + figures
 ├── tools/
 │   └── csDetector-fixed/      # Patched version of csDetector (13 bug fixes)
 │       ├── CHANGES.md         # Detailed changelog of all fixes
@@ -56,7 +61,9 @@ replication-package/
 │   │   ├── consolidated_community.csv     # 50 repos × 20 community (v1)
 │   │   ├── consolidated_community_300.csv # 300 repos × 53 community (v2)
 │   │   ├── consolidated_full.csv          # 50 repos × merged (v1)
-│   │   └── consolidated_full_300.csv      # 300 repos × merged (v2)
+│   │   ├── consolidated_full_300.csv      # 300 repos × merged (v2)
+│   │   ├── temporal_data_complete.csv     # 800 snapshots × temporal metrics
+│   │   └── commit_concentration.csv       # 208 repos × commit concentration
 │   └── raw/                           # Raw tool outputs (see raw/README.md)
 │       └── README.md
 └── docs/
@@ -74,8 +81,12 @@ replication-package/
 | Community (expanded) | 300 | 53 | csDetector-fixed output (94.3% coverage) |
 | Full (original) | 50 | 62 | Merged technical + social |
 | Full (expanded) | 300 | 35 | Merged technical + social + CS indicators |
+| **Temporal** | **208 x 5yr** | **47** | **Longitudinal: social + technical per project year** |
+| **Commit concentration** | **208** | **14** | **Temporal distribution of commits per repo** |
 
-## Key Findings (Expanded Dataset, N=300)
+## Key Findings
+
+### Cross-sectional (N=300)
 
 - **100,643 Code Smell instances** across 318 repositories
 - Top 3 smells: Magic Number (57.4%), Unutilized Abstraction (20.8%), Long Statement (13.3%)
@@ -84,6 +95,15 @@ replication-package/
 - Community Smell indicators: Radio Silence 39.7%, Lone Wolf 30.0%, Org Silo 28.7%
 - **3 sociotechnical profiles** identified via k-means clustering (N=113)
 - Network density is the key contextual factor differentiating cluster profiles
+
+### Longitudinal (208 repos, 800 snapshots)
+
+- **99.5% of repos are write-once artifacts** -- same commit hash across all project years
+- Median 6 unique active days; 74.5% of commits in first 30 days
+- Code Smells stable across years (Kruskal-Wallis H=0.165, p=0.997)
+- CommitCount x CodeSmells: **rho = 0.45-0.50 (p<0.001)** stable across all 5 years
+- Radio Silence co-occurrence significant only in Years 1-3 (Mann-Whitney p<0.05)
+- Lone Wolf is permanent (0 transitions Y1->Y5); Radio Silence unidirectional (McNemar p=0.008)
 
 ### csDetector-fixed
 
@@ -148,10 +168,34 @@ See [`tools/csDetector-fixed/CHANGES.md`](tools/csDetector-fixed/CHANGES.md) for
      --output-dir data/
    ```
 
-5. **Run analysis:**
+5. **Run cross-sectional analysis:**
    ```bash
    python scripts/06_analysis_v2.py
    python scripts/07_analysis_extra.py
+   ```
+
+6. **Run temporal extraction** (requires repos cloned in step 3):
+   ```bash
+   python scripts/08_temporal_extraction.py \
+     --repos-csv data/repositories.csv \
+     --urls-file urls/repo_urls.txt \
+     --owner-map urls/owner_map.json \
+     --output-dir results/temporal \
+     --pat YOUR_GITHUB_PAT
+   ```
+
+7. **Run Designite on temporal snapshots:**
+   ```bash
+   python scripts/08b_run_designite_temporal.py \
+     --csv results/temporal/temporal_data_*.csv \
+     --repos-dir results/temporal/repos \
+     --designite-jar /path/to/DesigniteJava.jar
+   ```
+
+8. **Run temporal analysis:**
+   ```bash
+   python scripts/11_commit_concentration.py results/temporal/repos results/temporal/temporal_data_complete_fixed.csv
+   python scripts/12_dissertation_analysis.py
    ```
 
 ## Inclusion/Exclusion Criteria
