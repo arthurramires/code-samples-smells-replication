@@ -1,0 +1,10 @@
+Test,Metric,Statistic,p_value,Details
+Friedman,CommitCount,4.000,0.4060,
+Wilcoxon_Y1vsY5,CommitCount,0.0,0.3173,
+Friedman,AuthorCount,4.000,0.4060,
+Wilcoxon_Y1vsY5,AuthorCount,0.0,0.3173,
+Friedman,BusFactor,4.000,0.4060,
+Wilcoxon_Y1vsY5,BusFactor,0.0,0.3173,
+McNemar_Y1vsY5,LoneWolf,,nan,"0->1:0, 1->0:0"
+McNemar_Y1vsY5,RadioSilence,,0.0078,"0->1:0, 1->0:8"
+Kruskal-Wallis,CodeSmells_KW,0.165,0.9968,

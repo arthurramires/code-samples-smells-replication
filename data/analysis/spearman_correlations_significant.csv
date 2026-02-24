@@ -1,0 +1,30 @@
+Technical Variable,Social Variable,Rho,P-value,Significance,N
+total_code_smells,CommitCount,0.1129,0.028396,*,377
+total_code_smells,BusFactorNumber,-0.2544,0.000413,***,189
+total_code_smells,org_silo,-0.1132,0.027995,*,377
+total_code_smells,NumberIssues,-0.2029,0.007966,**,170
+total_code_smells,commitCentrality_Community Count,-0.1217,0.027996,*,326
+total_design_smells,CommitCount,0.1829,0.000357,***,377
+total_impl_smells,TimezoneCount,-0.1026,0.046471,*,377
+total_impl_smells,BusFactorNumber,-0.2746,0.000131,***,189
+total_impl_smells,lone_wolf,-0.1183,0.021635,*,377
+total_impl_smells,org_silo,-0.1377,0.007416,**,377
+total_impl_smells,NumberIssues,-0.2503,0.000996,***,170
+total_impl_smells,commitCentrality_Community Count,-0.1315,0.017530,*,326
+Magic_Number,AuthorCount,-0.1598,0.001857,**,377
+Magic_Number,DaysActive,-0.1114,0.030565,*,377
+Magic_Number,TimezoneCount,-0.1937,0.000154,***,377
+Magic_Number,BusFactorNumber,-0.2386,0.000946,***,189
+Magic_Number,lone_wolf,-0.1667,0.001160,**,377
+Magic_Number,org_silo,-0.2078,0.000048,***,377
+Magic_Number,NumberIssues,-0.2859,0.000157,***,170
+Magic_Number,commitCentrality_Community Count,-0.2105,0.000129,***,326
+Long_Parameter_List,CommitCount,0.1804,0.000433,***,377
+Long_Parameter_List,BusFactorNumber,-0.2583,0.000332,***,189
+Long_Parameter_List,radio_silence,-0.1176,0.022332,*,377
+Complex_Method,CommitCount,0.1108,0.031450,*,377
+Long_Method,CommitCount,0.1405,0.006279,**,377
+Long_Method,AuthorCount,0.1106,0.031768,*,377
+Unutilized_Abstraction,CommitCount,0.1904,0.000201,***,377
+Deficient_Encapsulation,CommitCount,0.1304,0.011292,*,377
+Deficient_Encapsulation,BusFactorNumber,-0.1958,0.006937,**,189

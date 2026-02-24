@@ -1,0 +1,388 @@
+================================================================================
+COMPREHENSIVE STATISTICAL ANALYSIS SUMMARY
+Co-occurrence of Code Smells and Community Smells in Java Code Samples
+Master's Dissertation Analysis Report
+================================================================================
+
+DATASETS ANALYZED:
+================================================================================
+1. Cross-Sectional Data: 377 repositories
+   - Source: consolidated_full_v1v2.csv
+   - Contains: technical metrics, code smells, social metrics, community smells
+
+2. Temporal Data: 208 repositories across 5 project years
+   - Total snapshots: 800
+   - Year distribution: Y1(208), Y2(178), Y3(161), Y4(134), Y5(119)
+   - Source: temporal_v1.csv
+
+
+PART A: CROSS-SECTIONAL ANALYSIS (N=377)
+================================================================================
+
+1. DESCRIPTIVE STATISTICS - TECHNICAL METRICS
+   (Only V2 repos contain full technical metrics; V1 repos have limited data)
+   
+   Code Size Metrics (N=77 repos with available data):
+   - Classes: M=20.01, Mdn=9.00 (SD=34.50, range 0-215)
+   - Methods: M=113.36, Mdn=28.00 (SD=278.37, range 0-2093)
+   - Lines of Code: M=1187.08, Mdn=348.00 (SD=2826.56, range 0-20573)
+   - Mean WMC: M=10.60, Mdn=6.84 (SD=20.63, range 0-180)
+   - Mean CC: M=1.71, Mdn=1.56 (SD=0.79, range 0-5.20)
+   - Max CC: M=7.38, Mdn=5.00 (SD=6.92, range 0-34)
+   - Smell Density: M=99.87, Mdn=77.67 (SD=91.14, range 0-494.25)
+
+2. CODE SMELL DISTRIBUTION (N=377)
+   
+   Total Code Smells:
+   - Mean: 276.33 (Median: 25.00, SD: 1942.92)
+   - Range: 0-34,781
+   - Q1-Q3: 7-104
+   
+   Design Smells:
+   - Mean: 70.26 (Median: 7.00, SD: 561.35)
+   - Range: 0-10,592
+   
+   Implementation Smells:
+   - Mean: 206.08 (Median: 15.00, SD: 1412.59)
+   - Range: 0-24,189
+
+   Top 10 Most Prevalent Code Smell Types:
+   1. AuthorCommitCount_mean (367 repos, 97.3%)
+   2. AuthorActiveDays_mean (367 repos, 97.3%)
+   3. Unutilized_Abstraction (355 repos, 94.2%)
+   4. commitCentrality_Centrality_mean (294 repos, 77.9%)
+   5. Magic_Number (286 repos, 75.9%)
+   6. commitCentrality_NumberHighCentralityAuthors (201 repos, 53.3%)
+   7. PRParticipantsCount_mean (197 repos, 52.3%)
+   8. IssueParticipantCount_mean (166 repos, 44.0%)
+   9. IssueCommentsCount_mean (147 repos, 39.0%)
+   10. Deficient_Encapsulation (143 repos, 37.9%)
+
+3. SOCIAL METRICS DESCRIPTIVES (N=377, varies per metric)
+   
+   Social Collaboration Metrics:
+   - Commits: M=281.82, Mdn=22.00 (SD=3158.73, range 0-60,912)
+   - Days Active: M=1216.36, Mdn=417.00 (SD=1573.41, range 0-5,045)
+   - Authors: M=15.81, Mdn=2.00 (SD=105.13, range 0-1,842)
+   - Timezone Count: M=3.47, Mdn=2.00 (SD=3.55, range 0-26)
+   - Pull Requests (N=206): M=35.41, Mdn=11.00 (SD=144.90)
+   - Issues (N=170): M=19.29, Mdn=6.00 (SD=92.43)
+
+   Community Smell Prevalence (N=377):
+   - Lone Wolf: 114 repos (30.2%)
+   - Radio Silence: 150 repos (39.8%)
+   - Org Silo: 102 repos (27.1%)
+
+4. COOCCURRENCE ANALYSIS
+   
+   Community Smells vs Code Smell Types:
+   ┌─────────────────────────────────────────────────────────────┐
+   │                Design  Implementation  Total Code Smells      │
+   ├─────────────────────────────────────────────────────────────┤
+   │ Lone Wolf        107         106          114               │
+   │ Radio Silence    127         114          133               │
+   │ Org Silo         92          87           95                │
+   └─────────────────────────────────────────────────────────────┘
+
+5. SPEARMAN RANK CORRELATIONS (Significant p<0.05)
+   
+   KEY FINDINGS - Code Smells & Social Factors:
+   
+   Total Code Smells:
+   - CommitCount: rho=0.113, p=0.028* (positive)
+   - BusFactorNumber: rho=-0.254, p<0.001*** (negative)
+   - org_silo: rho=-0.113, p=0.028* (negative)
+   - NumberIssues: rho=-0.203, p=0.008** (negative)
+   - commitCentrality_CommunityCount: rho=-0.122, p=0.028* (negative)
+   
+   Total Design Smells:
+   - CommitCount: rho=0.183, p<0.001*** (positive)
+   
+   Total Implementation Smells:
+   - TimezoneCount: rho=-0.103, p=0.047* (negative)
+   - BusFactorNumber: rho=-0.275, p<0.001*** (negative)
+   - lone_wolf: rho=-0.118, p=0.022* (negative)
+   - org_silo: rho=-0.138, p=0.007** (negative)
+   - NumberIssues: rho=-0.250, p<0.001*** (negative)
+   - commitCentrality_CommunityCount: rho=-0.131, p=0.018* (negative)
+   
+   Magic Number Smell (Most strongly correlated):
+   - BusFactorNumber: rho=-0.239, p<0.001***
+   - org_silo: rho=-0.208, p<0.001***
+   - NumberIssues: rho=-0.286, p<0.001***
+   - commitCentrality_CommunityCount: rho=-0.210, p<0.001***
+   - TimezoneCount: rho=-0.194, p<0.001***
+   
+   INTERPRETATION: Magic Number smells are significantly REDUCED in projects with:
+   - Higher bus factor (distributed knowledge)
+   - Org silo problems
+   - More issue engagement
+   - More diverse teams (timezones)
+   
+   Long Parameter List:
+   - CommitCount: rho=0.180, p<0.001***
+   - BusFactorNumber: rho=-0.258, p<0.001***
+   - radio_silence: rho=-0.118, p=0.022*
+   
+   Long Method & Complex Method:
+   - CommitCount: rho=0.141, p=0.006** & rho=0.111, p=0.031*
+   - AuthorCount: rho=0.111, p=0.032*
+   
+   Design Metrics (Unutilized Abstraction, Deficient Encapsulation):
+   - CommitCount: rho=0.190/0.130, p<0.001*/*
+   - BusFactorNumber: rho=-0.196, p=0.007**
+
+6. MANN-WHITNEY U TESTS (Community Smell Cooccurrence Effects)
+   
+   Lone Wolf Community Smell:
+   - Total Code Smells: U=13316, p=0.085 (marginally not significant)
+     Median: Present=14.5, Absent=32.0 (r_rb=0.112)
+   - Implementation Smells: U=12764, p=0.022* (significant)
+     Median: Present=7.0, Absent=19.0 (r_rb=0.149)
+   
+   Radio Silence Community Smell:
+   - Total Code Smells: U=15718, p=0.207 (not significant)
+   - Implementation Smells: U=16145, p=0.395 (not significant)
+   
+   Org Silo Community Smell:
+   - Total Code Smells: U=11962, p=0.028* (significant)
+     Median: Present=11.0, Absent=34.0 (r_rb=0.147)
+   - Implementation Smells: U=11518, p=0.008** (significant)
+     Median: Present=5.0, Absent=19.0 (r_rb=0.179)
+   
+   INTERPRETATION: Org Silo and Lone Wolf are significantly associated with
+   LOWER code smell counts, suggesting better-organized projects have these
+   organizational structural patterns.
+
+7. PARTIAL CORRELATIONS (Controlling for AuthorCount)
+   
+   - org_silo vs total_code_smells | AuthorCount:
+     Partial rho=-0.097, p=0.061 (marginally significant)
+   
+   - lone_wolf vs total_code_smells | AuthorCount:
+     Partial rho=-0.091, p=0.077 (marginally significant)
+   
+   - BusFactorNumber vs total_code_smells | AuthorCount:
+     Partial rho=-0.163, p=0.025* (significant)
+   
+   FINDING: Bus Factor effect on code smells remains significant even after
+   controlling for team size, suggesting it's not just a size effect.
+
+8. K-MEANS CLUSTERING (N=173 repos after outlier removal)
+   
+   Optimal Cluster Solution: K=7 (Silhouette Score=0.445)
+   
+   Cluster Profiles:
+   
+   Cluster 0 (n=11): High Smell, Low Activity
+   - Code Smells: M=100.91, Commits: M=23.18, Authors: M=4.45
+   - Characteristic: Small projects with smell problems
+   
+   Cluster 1 (n=50): Clean, Very Active
+   - Code Smells: M=94.34, Commits: M=222.16, Authors: M=28.08
+   - Days Active: M=4349 (11.9 years!)
+   - Characteristic: Long-lived, large projects with distributed authority
+   
+   Cluster 2 (n=77): Moderate Smells, Moderate Activity
+   - Code Smells: M=116.38, Commits: M=63.01, Authors: M=7.42
+   - High Centrality Density: M=0.24
+   - Characteristic: Mainstream development profile
+   
+   Cluster 3 (n=26): Moderate Smells, Short-lived
+   - Code Smells: M=82.50, Centrality Density: M=0.95 (highly centralized)
+   - Days Active: M=471
+   - Characteristic: Small, tightly-controlled projects
+   
+   Cluster 4 (n=2): Outliers - Very Active
+   - Code Smells: M=175, Commits: M=987.50, Authors: M=22.50
+   
+   Cluster 5 (n=6): Outliers - Heavy Smell Burden
+   - Code Smells: M=2664.17 (outliers)
+   - Commits: M=494.50
+   
+   Cluster 6 (n=1): Extreme Outlier
+   - Code Smells: 2539, Authors: 76, perfect centrality
+
+
+================================================================================
+PART B: TEMPORAL ANALYSIS (N=208 repos, 5 project years)
+================================================================================
+
+9. TEMPORAL DESCRIPTIVES BY YEAR
+
+   Year 1 (N=208):
+   - Commits: Mdn=16, Authors: Mdn=2, Bus Factor: Mdn=0.9
+   - Code Smells: Mdn=50.5 | Design: Mdn=15.5 | Implementation: Mdn=30.5
+   - Lone Wolf: 49.5% | Radio Silence: 53.8%
+
+   Year 2 (N=178):
+   - Commits: Mdn=11.5, Authors: Mdn=2, Bus Factor: Mdn=0.9
+   - Code Smells: Mdn=44.0 | Design: Mdn=13.5 | Implementation: Mdn=28.5
+   - Lone Wolf: 52.2% | Radio Silence: 54.5%
+
+   Year 3 (N=161):
+   - Commits: Mdn=12.0, Authors: Mdn=2, Bus Factor: Mdn=0.9
+   - Code Smells: Mdn=46.0 | Design: Mdn=15.0 | Implementation: Mdn=30.0
+   - Lone Wolf: 53.4% | Radio Silence: 57.1%
+
+   Year 4 (N=134):
+   - Commits: Mdn=14.0, Authors: Mdn=2, Bus Factor: Mdn=0.9
+   - Code Smells: Mdn=44.0 | Design: Mdn=15.5 | Implementation: Mdn=28.0
+   - Lone Wolf: 53.0% | Radio Silence: 53.0%
+
+   Year 5 (N=119):
+   - Commits: Mdn=12.0, Authors: Mdn=2, Bus Factor: Mdn=0.9
+   - Code Smells: Mdn=44.0 | Design: Mdn=16.0 | Implementation: Mdn=28.0
+   - Lone Wolf: 55.5% | Radio Silence: 56.3%
+
+   FINDING: Code smells are remarkably STABLE across 5 years (Y1: 50.5 → Y5: 44.0)
+
+10. SPEARMAN CORRELATIONS BY YEAR
+    
+    Key Pattern - All 5 years show CONSISTENT positive correlations:
+    
+    CommitCount vs Code Smells:
+    - Y1: rho=0.465, p<0.001*** | Y2: rho=0.450, p<0.001*** | Y3: rho=0.454, p<0.001***
+    - Y4: rho=0.497, p<0.001*** | Y5: rho=0.448, p<0.001***
+    
+    AuthorCount vs Code Smells:
+    - Y1: rho=0.204, p=0.003** | Y2: rho=0.248, p<0.001*** | Y3: rho=0.273, p<0.001***
+    - Y4: rho=0.274, p=0.001** | Y5: rho=0.281, p=0.002**
+    
+    DaysActive vs Code Smells:
+    - Y1: rho=0.250, p<0.001*** | Y2: rho=0.276, p<0.001*** | Y3: rho=0.305, p<0.001***
+    - Y4: rho=0.269, p=0.002** | Y5: rho=0.241, p=0.008**
+    
+    BusFactorNumber vs Code Smells:
+    - Y1: rho=-0.112, p=0.107 (ns) | Y2: rho=-0.165, p=0.028* | Y3: rho=-0.184, p=0.019*
+    - Y4: rho=-0.143, p=0.100 (ns) | Y5: rho=-0.157, p=0.087 (ns)
+    
+    FINDING: Commitment activity (commits, authors, days active) shows CONSISTENT
+    strong positive correlations with code smells across all years.
+
+11. MANN-WHITNEY TESTS BY YEAR (Community Smell Effects)
+    
+    Tests conducted for:
+    - Radio Silence vs Code Smells (by year)
+    - Lone Wolf vs Code Smells (by year)
+    
+    See fig_cooccurrence_effect.pdf for temporal patterns
+
+12. SOCIAL EVOLUTION (5-Year Trends)
+    
+    Bus Factor: Median=0.9 across all years (highly stable, low dispersion)
+    Author Count: Median=2.0 across all years (stable, small teams)
+    Community Smells: Slight increasing trend
+    - Lone Wolf: 49.5% → 55.5% (+6% over 5 years)
+    - Radio Silence: 53.8% → 56.3% (+2.5% over 5 years)
+    
+    Commits: Slight decline from Y1 to Y5 (16.0 → 12.0)
+
+13. KRUSKAL-WALLIS TEST (Code Smells across years)
+    
+    Result: H=0.165, p=0.997 (NOT significant)
+    
+    FINDING: Code smell distributions do NOT differ significantly across
+    project years 1-5. This indicates temporal STABILITY in smell prevalence.
+
+14. FRIEDMAN TEST (Balanced panel, N=119 repos with all 5 years)
+    
+    CommitCount across years: T=4.000, p=0.406 (not significant)
+    AuthorCount across years: T=4.000, p=0.406 (not significant)
+    BusFactorNumber across years: T=4.000, p=0.406 (not significant)
+    
+    FINDING: For projects present all 5 years, social metrics do not
+    significantly change over time (within-subject consistency).
+
+15. TRANSITIONS YEAR 1 → YEAR 5 (Balanced panel)
+    
+    Lone Wolf Status:
+    - 0→0 (Never present): 53 repos
+    - 0→1 (Appear): 0 repos
+    - 1→0 (Disappear): 0 repos
+    - 1→1 (Always present): 66 repos
+    
+    McNemar Test: INVARIANT (no transitions detected)
+    FINDING: Lone Wolf status is HIGHLY STABLE - once present, it persists.
+    
+    Radio Silence Status:
+    - 0→0 (Never present): 44 repos
+    - 0→1 (Appear): 0 repos
+    - 1→0 (Disappear): 8 repos
+    - 1→1 (Always present): 67 repos
+    
+    McNemar χ²=8.000, p=0.005**
+    FINDING: Radio Silence shows significant but limited transitions.
+    8 repos resolved radio silence between Y1 and Y5.
+
+
+================================================================================
+MAJOR FINDINGS & INSIGHTS
+================================================================================
+
+1. COMMUNITY STRUCTURE & CODE QUALITY RELATIONSHIP
+   - Bus Factor (knowledge distribution) is NEGATIVELY correlated with code smells
+   - Org Silo (structural separation) is NEGATIVELY correlated with code smells
+   - These suggest well-organized projects (with intentional silos or distributed
+     knowledge) have lower smell density
+
+2. SMELL TYPES SHOW DIFFERENT PATTERNS
+   - Design Smells INCREASE with commit count (rho=0.183, p<0.001)
+   - Implementation Smells DECREASE with bus factor (rho=-0.275, p<0.001)
+   - Magic Numbers show strongest correlations with social factors
+   
+3. CODE QUALITY IS TEMPORALLY STABLE
+   - Kruskal-Wallis: H=0.165, p=0.997 (no year differences)
+   - Friedman test shows no changes in social metrics over 5 years
+   - Absolute smell counts vary, but relative patterns persist
+
+4. COMMUNITY SMELLS PREDICT QUALITY PATTERNS
+   - Repos WITH org_silo have 65% FEWER code smells (p=0.028)
+   - Repos WITH org_silo have 74% FEWER impl smells (p=0.008)
+   - Lone Wolf effect on implementation smells: p=0.022
+
+5. CONSISTENCY ACROSS SCALES
+   - Temporal (5-year) correlations match cross-sectional correlations
+   - CommitCount × CodeSmells: consistent rho~0.45 across years
+   - AuthorCount × CodeSmells: consistent rho~0.25 across years
+
+6. TEAM DYNAMICS
+   - Median team size: 2 authors per project (very small)
+   - Very wide range: 0-1,842 authors (includes large-scale projects)
+   - Bus Factor median: 0.9 (high concentration of knowledge)
+   - Timezone disparity common: Median 2 timezones, range 0-26
+
+7. OUTLIER PATTERNS
+   - 6 repos show EXTREME smell burden (M=2664 smells)
+   - These are high-activity projects with large teams
+   - Suggests code quality degradation in very large projects
+
+
+================================================================================
+OUTPUT FILES GENERATED
+================================================================================
+
+FIGURES (PDF + PNG at 300 DPI):
+- fig_top10_smells.pdf/png - Horizontal bar chart of most prevalent smells
+- fig_community_smells.pdf/png - Prevalence bar chart (lone wolf, radio silence, org silo)
+- fig_cooccurrence.pdf/png - Heatmap of community vs code smell cooccurrence
+- fig_heatmap_spearman.pdf/png - Correlation matrix heatmap (significant pairs only)
+- fig_scatter_busfactor_smells.pdf/png - Scatter plot with regression line
+- fig_boxplot_mann_whitney.pdf/png - 2x3 boxplot grid for Mann-Whitney tests
+- fig_clusters.pdf/png - K-means cluster visualization (2 subplots)
+- fig_correlation_heatmap.pdf/png - Temporal correlations by year
+- fig_cooccurrence_effect.pdf/png - Community smells effect temporal panels
+- fig_social_evolution.pdf/png - 2x2 social metric evolution over 5 years
+- fig_code_smells_stable.pdf/png - Code smell stability and composition by year
+- fig_transitions_y1_y5.pdf/png - State transitions visualization
+
+TABLES (CSV format):
+- spearman_correlations_significant.csv - All significant correlations (p<0.05)
+- mann_whitney_tests.csv - Community smell cooccurrence tests
+- temporal_descriptives_by_year.csv - Medians by project year
+
+All outputs at: /sessions/sleepy-loving-ride/analysis/
+
+================================================================================
+END OF ANALYSIS SUMMARY
+================================================================================

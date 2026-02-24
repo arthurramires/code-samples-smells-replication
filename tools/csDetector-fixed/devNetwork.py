@@ -127,6 +127,11 @@ def main(argv):
                 delta,
                 batchDates,
             )
+            # FIX: pad to match batchDates length (repos with few PRs return shorter lists)
+            while len(prParticipantBatches) < len(batchDates):
+                prParticipantBatches.append([])
+            while len(prCommentBatches) < len(batchDates):
+                prCommentBatches.append([])
         except Exception as e:
             print(f"WARNING: PR analysis failed: {e}")
 
@@ -137,6 +142,11 @@ def main(argv):
                 delta,
                 batchDates,
             )
+            # FIX: pad to match batchDates length (repos with few issues return shorter lists)
+            while len(issueParticipantBatches) < len(batchDates):
+                issueParticipantBatches.append([])
+            while len(issueCommentBatches) < len(batchDates):
+                issueCommentBatches.append([])
         except Exception as e:
             print(f"WARNING: Issue analysis failed: {e}")
 

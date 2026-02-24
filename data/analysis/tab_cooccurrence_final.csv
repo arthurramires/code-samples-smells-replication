@@ -1,0 +1,4 @@
+CommunitySmell,Y1_n_present,Y1_n_absent,Y1_med_present,Y1_med_absent,Y1_U,Y1_p,Y1_r,Y1_sig,Y2_n_present,Y2_n_absent,Y2_med_present,Y2_med_absent,Y2_U,Y2_p,Y2_r,Y2_sig,Y3_n_present,Y3_n_absent,Y3_med_present,Y3_med_absent,Y3_U,Y3_p,Y3_r,Y3_sig,Y4_n_present,Y4_n_absent,Y4_med_present,Y4_med_absent,Y4_U,Y4_p,Y4_r,Y4_sig,Y5_n_present,Y5_n_absent,Y5_med_present,Y5_med_absent,Y5_U,Y5_p,Y5_r,Y5_sig
+LoneWolf,103,105,49.0,57.0,5312,0.8258,0.015,,93,85,35.0,48.0,3654,0.3854,0.065,,86,75,35.0,57.0,2873,0.2335,0.094,,71,63,38.0,46.0,2103,0.5532,0.051,,66,53,38.5,46.0,1644,0.5745,0.051,
+RadioSilence,112,96,35.0,66.5,4328,0.0155,0.168,*,97,81,31.0,50.0,3128,0.0195,0.175,*,92,69,34.5,50.0,2593,0.0473,0.156,*,71,63,46.0,44.0,2020,0.3367,0.083,,67,52,49.0,43.0,1666,0.6858,0.037,
+OrgSilo,0,208,0.0,50.5,NaN,NaN,NaN,,0,178,0.0,44.0,NaN,NaN,NaN,,0,161,0.0,46.0,NaN,NaN,NaN,,0,134,0.0,44.0,NaN,NaN,NaN,,0,119,0.0,44.0,NaN,NaN,NaN,

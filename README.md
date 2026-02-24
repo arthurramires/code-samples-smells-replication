@@ -18,7 +18,7 @@ This replication package accompanies the Master's thesis:
 > Advisor: Prof. Dr. Awdren de Lima Fontão
 > Co-advisor: Profa. Dra. Maria Istela Cagnin Machado
 
-The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in 318 Java open-source code sample repositories, achieving 94.3% community data coverage (300/318 repos). It includes a **complete longitudinal analysis** by project year (208 repos x up to 5 years = 800 snapshots), revealing that code samples are **write-once artifacts** whose Code Smells are determined at creation and remain stable over time.
+The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in Java open-source code sample repositories. **Dataset V1** comprises 318 repos (300 with community data, 94.3% coverage). **Dataset V2** adds 52 new repos from Azure-Samples, aws-samples, spring-guides, and googlesamples (444 candidates, 52 passing LOC filter). The unified dataset supports cross-sectional analysis (up to 352 repos) and longitudinal analysis by project year (repos with ≥ 2 project years), revealing that code samples are **write-once artifacts** whose Code Smells are determined at creation and remain stable over time.
 
 ## Repository Structure
 
@@ -40,8 +40,10 @@ replication-package/
 │   ├── 08_temporal_extraction.py      # Temporal extraction: git checkout + GitHub API
 │   ├── 08b_run_designite_temporal.py  # Designite Java on temporal snapshots
 │   ├── 09_temporal_analysis.py        # Initial temporal statistical analysis
+│   ├── 10_pipeline_incremental.sh     # V2 incremental pipeline (process → consolidate → clean)
 │   ├── 11_commit_concentration.py     # Commit temporal concentration analysis
-│   └── 12_dissertation_analysis.py    # Final analysis: all tables + figures
+│   ├── 12_dissertation_analysis.py    # Final analysis: all tables + figures
+│   └── 13_consolidate_unified.py      # Unified V1+V2 consolidation
 ├── tools/
 │   └── csDetector-fixed/      # Patched version of csDetector (13 bug fixes)
 │       ├── CHANGES.md         # Detailed changelog of all fixes
@@ -65,10 +67,15 @@ replication-package/
 │   │   ├── temporal_data_complete.csv     # 800 snapshots × temporal metrics
 │   │   └── commit_concentration.csv       # 208 repos × commit concentration
 │   └── raw/                           # Raw tool outputs (see raw/README.md)
-│       └── README.md
+│       ├── README.md
+│       ├── v2_new_repos_all_loc_filtered.csv   # V2 repos passing LOC filter (52)
+│       └── v2_new_repos_to_process.csv         # V2 repos passing LOC + age≥2y (18)
 └── docs/
     ├── CODEBOOK.md            # Variable definitions and data dictionary
-    └── MSR-FAIR-COMPLIANCE.md # FAIR principles compliance checklist
+    ├── MSR-FAIR-COMPLIANCE.md # FAIR principles compliance checklist
+    ├── METHODOLOGY.md         # Methodological decisions and rationale
+    ├── CHANGELOG.md           # Dataset and pipeline version history
+    └── literature_references_temporal_criteria.md  # Age criterion references
 ```
 
 ## Dataset Summary
@@ -205,7 +212,7 @@ See [`tools/csDetector-fixed/CHANGES.md`](tools/csDetector-fixed/CHANGES.md) for
 | IC1 | Java as primary language | Research focus |
 | IC2 | Public GitHub repository | API access and reproducibility |
 | IC3 | 500 ≤ LOC ≤ 100,000 | Representative code sample size |
-| IC4 | ≥ 1 year of commit history | Temporal analysis feasibility |
+| IC4 | ≥ 2 project years (730 days) for temporal | Justified by Rio (2023), Olbrich (2009), Tufano (2017) |
 | IC5 | Characterized as code sample | Research scope |
 | EC1 | Fork repository | Avoid data duplication |
 | EC2 | Archived repository | No recent activity |

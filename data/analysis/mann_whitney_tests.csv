@@ -1,0 +1,7 @@
+Community Smell,Code Smell Variable,U Statistic,P-value,Rank-Biserial,Median Present,Median Absent,N Present,N Absent
+lone_wolf,total_code_smells,13316.5,0.084901,0.1117,14.5,32.0,114,263
+lone_wolf,total_impl_smells,12764.5,0.021864,0.1485,7.0,19.0,114,263
+radio_silence,total_code_smells,15717.5,0.206844,0.0768,20.0,29.0,150,227
+radio_silence,total_impl_smells,16145.0,0.395310,0.0517,12.5,16.0,150,227
+org_silo,total_code_smells,11962.5,0.028225,0.1471,11.0,34.0,102,275
+org_silo,total_impl_smells,11517.5,0.007595,0.1788,5.0,19.0,102,275
