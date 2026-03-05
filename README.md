@@ -18,7 +18,7 @@ This replication package accompanies the Master's thesis:
 > Advisor: Prof. Dr. Awdren de Lima Fontão
 > Co-advisor: Profa. Dra. Maria Istela Cagnin Machado
 
-The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in Java open-source code sample repositories. **Dataset V1** comprises 318 repos (300 with community data, 94.3% coverage). **Dataset V2** adds 52 new repos from Azure-Samples, aws-samples, spring-guides, and googlesamples (444 candidates, 52 passing LOC filter). The unified dataset supports cross-sectional analysis (up to 352 repos) and longitudinal analysis by project year (repos with ≥ 2 project years), revealing that code samples are **write-once artifacts** whose Code Smells are determined at creation and remain stable over time.
+The study investigates the co-occurrence between Code Smells (detected by Designite Java) and Community Smells (detected by csDetector-fixed) in Java open-source code sample repositories. **Dataset V1** comprises 318 repos (300 with community data, 94.3% coverage). **Dataset V2** expands the search to 444 additional candidates from Azure-Samples, aws-samples, spring-guides, and googlesamples, adding **77 new repositories** with complete data (52 passing LOC filter + 25 recovered from V1). The **unified dataset (V1+V2) comprises 377 repositories** with 104,178 Code Smell instances, supporting cross-sectional analysis (N=377) and longitudinal analysis by project year (208 repos, 800 snapshots), revealing that code samples are **write-once artifacts** whose Code Smells are determined at creation and remain stable over time.
 
 ## Repository Structure
 
@@ -82,25 +82,24 @@ replication-package/
 
 | Subset | Repositories | Variables | Description |
 |--------|-------------|-----------|-------------|
-| Code Smells | 318 | 28 | Design and implementation smells per repo |
-| Metrics | 318 | 17 | LOC, WMC, CC, FANIN/OUT, LCOM, DIT, smell density |
+| Code Smells (V1) | 318 | 28 | Design and implementation smells per repo |
+| Metrics (V1) | 318 | 17 | LOC, WMC, CC, FANIN/OUT, LCOM, DIT, smell density |
 | Community (original) | 50 | 20 | Original csDetector output |
-| Community (expanded) | 300 | 53 | csDetector-fixed output (94.3% coverage) |
-| Full (original) | 50 | 62 | Merged technical + social |
-| Full (expanded) | 300 | 35 | Merged technical + social + CS indicators |
-| **Temporal** | **208 x 5yr** | **47** | **Longitudinal: social + technical per project year** |
+| Community (expanded, V1) | 300 | 53 | csDetector-fixed output (94.3% coverage) |
+| **Unified (V1+V2)** | **377** | **35+** | **Merged technical + social + CS indicators** |
+| **Temporal** | **208 × 5yr** | **47** | **Longitudinal: social + technical per project year** |
 | **Commit concentration** | **208** | **14** | **Temporal distribution of commits per repo** |
 
 ## Key Findings
 
-### Cross-sectional (N=300)
+### Cross-sectional (N=377, unified V1+V2)
 
-- **100,643 Code Smell instances** across 318 repositories
-- Top 3 smells: Magic Number (57.4%), Unutilized Abstraction (20.8%), Long Statement (13.3%)
-- **Bus Factor** is the strongest social correlate of Code Smells (ρ = −0.366, p < 0.001)
-- Mann-Whitney U tests confirm significant differences for **Org Silo** (p < 0.001) and **Lone Wolf** (p = 0.012)
-- Community Smell indicators: Radio Silence 39.7%, Lone Wolf 30.0%, Org Silo 28.7%
-- **3 sociotechnical profiles** identified via k-means clustering (N=113)
+- **104,178 Code Smell instances** across 377 repositories (26,487 design + 77,691 implementation)
+- Top 3 smells: Magic Number (56.3%), Unutilized Abstraction (20.8%), Long Statement (13.3%)
+- **Bus Factor** is the strongest social correlate of Code Smells (ρ = −0.254, p < 0.001)
+- Mann-Whitney U tests confirm significant differences for **Org Silo** (U=11,962; p=0.028; r_rb=0.147) and **Lone Wolf** at implementation level (U=12,764; p=0.022; r_rb=0.149)
+- Community Smell indicators: Radio Silence 39.8%, Lone Wolf 30.2%, Org Silo 27.1%
+- **4 sociotechnical profiles**: 3 via k-means clustering (N=173) + 1 dormant profile (N=204)
 - Network density is the key contextual factor differentiating cluster profiles
 
 ### Longitudinal (208 repos, 800 snapshots)
@@ -114,7 +113,7 @@ replication-package/
 
 ### csDetector-fixed
 
-The original csDetector tool processed only 50/318 repositories (15.7%) due to multiple bugs. We created **csDetector-fixed**, a patched version with 13 bug fixes that achieved **300/318 (94.3%)** coverage. Key fixes include:
+The original csDetector tool processed only 50/318 repositories (15.7%) due to multiple bugs. We created **csDetector-fixed**, a patched version with 13 bug fixes that achieved **300/318 (94.3%)** coverage in V1, and 100% success rate on V2 candidates. Key fixes include:
 
 - Cross-platform compatibility (macOS/Linux support)
 - Python 3.10+ compatibility
